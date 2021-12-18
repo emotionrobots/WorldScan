@@ -43,6 +43,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="recordingButton_173x173.png"/>
+                                <connections>
+                                    <action selector="onScanBtn:" destination="BV1-FR-VrT" eventType="touchUpInside" id="2IQ-Wf-0o3"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
