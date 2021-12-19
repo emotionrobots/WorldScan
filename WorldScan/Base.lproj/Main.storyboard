@@ -94,6 +94,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Render" id="IOQ-Eu-Ncy"/>
+                    <connections>
+                        <outlet property="sceneView" destination="1eA-e1-AyK" id="dR0-rk-1RJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKq-wu-omZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

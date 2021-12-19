@@ -23,7 +23,13 @@ class ScanViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate
             scanBtn.isSelected = true
         }
         else {  // start scan
-            self.sceneView.session.pause()
+            sceneView.session.pause()
+            sceneView.session.getCurrentWorldMap { map, error in
+                if let good_map = map {
+                    print("Saved map")
+                    worldMap = good_map
+                }
+            }
             scanBtn.isSelected = false
         }
     }
@@ -57,6 +63,7 @@ class ScanViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate
         sceneView.showsStatistics = true
         sceneView.automaticallyUpdatesLighting = true
         sceneView.autoenablesDefaultLighting = true
+        sceneView.debugOptions.insert(.showWireframe)
         
         // Coaching overlay
         setupCoachingOverlay()
@@ -100,10 +107,9 @@ class ScanViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate
     ///  Update all nodes in the scene with their latest texture and mesh
     func scanAllGeometry(needTexture: Bool) {
         guard let frame = sceneView.session.currentFrame else { return }
-        guard let cameraImage = captureCamera() else {return}
+        guard let cameraImage = captureCamera(frame: frame) else {return}
 
-        guard let anchors = sceneView.session.currentFrame?.anchors else { return }
-        let meshAnchors = anchors.compactMap { $0 as? ARMeshAnchor}
+        let meshAnchors = frame.anchors.compactMap { $0 as? ARMeshAnchor}
         for anchor in meshAnchors {
             guard let node = sceneView.node(for: anchor) else { continue }
             let geometry = scanGeometory(frame: frame, anchor: anchor, node: node, needTexture: needTexture, cameraImage: cameraImage)
@@ -112,8 +118,7 @@ class ScanViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate
     }
     
     ///  Capture current frame image and convert it to UIImage required for texture
-    func captureCamera() -> UIImage? {
-        guard let frame = sceneView.session.currentFrame else {return nil}
+    func captureCamera(frame: ARFrame) -> UIImage? {
         let pixelBuffer = frame.capturedImage
         let image = CIImage(cvPixelBuffer: pixelBuffer)
         let context = CIContext(options:nil)
@@ -147,8 +152,14 @@ class ScanViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate
     
     
     ///  Called periodically to update all nodes with latest mesh
-    
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        sceneView.session.getCurrentWorldMap(completionHandler: { worldmap, error in
+            if let map = worldmap {
+                let meshAnchors = map.anchors.compactMap({ $0 as? ARMeshAnchor })
+                let probeAnchors = map.anchors.compactMap({ $0 as? AREnvironmentProbeAnchor })
+                print("meshAnchors: \(meshAnchors.count)   probeAnchors: \(probeAnchors.count)")
+            }
+        })
         self.scanAllGeometry(needTexture: true)
     }
     

@@ -16,3 +16,5 @@ var defaultConfiguration: ARWorldTrackingConfiguration {
     }
     return configuration
 }
+
+var worldMap: ARWorldMap?
