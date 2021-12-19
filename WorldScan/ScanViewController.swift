@@ -1,15 +1,14 @@
 //
-//  ViewController.swift
+//  ScanViewController.swift
 //  WorldScan
 //
-//  Created by Larry Li on 12/16/21.
+//  Created by Larry Li on 12/18/21.
 //
-
 import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
+class ScanViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
@@ -32,7 +31,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
        
     ///  onScanBtn - toggle between select
     @IBAction func onScanBtn(_ sender: UIButton) {
-        setScanSelect(select: !sender.isSelected)
+        if sender.isSelected { //  pause and go to Render
+            setScanSelect(select: false)
+            performSegue(withIdentifier: "segToRender", sender: self)
+        }
+        else {                  // run
+            setScanSelect(select: true)
+        }
     }
     
     
@@ -191,7 +196,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
 }
 
 
-extension ViewController: ARCoachingOverlayViewDelegate {
+extension ScanViewController: ARCoachingOverlayViewDelegate {
     
     func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
     }

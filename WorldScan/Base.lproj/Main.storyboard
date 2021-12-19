@@ -24,54 +24,84 @@
             </objects>
             <point key="canvasLocation" x="-2220" y="19"/>
         </scene>
-        <!--View Controller-->
+        <!--Scan-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="WorldScan" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="ScanViewController" customModule="WorldScan" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U0K-SW-4ec">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-h1-WRS">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKu-6Y-bab">
-                                <rect key="frame" x="167" y="722" width="80" height="80"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ov-cV-cud">
+                                <rect key="frame" x="167" y="716" width="80" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="YW4-XK-RoP"/>
-                                    <constraint firstAttribute="width" constant="80" id="s9b-Rp-fgj"/>
+                                    <constraint firstAttribute="width" constant="80" id="2QK-rC-sWA"/>
+                                    <constraint firstAttribute="height" constant="80" id="F5J-Mr-gsL"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="recordingButton_173x173.png"/>
+                                <buttonConfiguration key="configuration" style="plain" image="startScanBtn" title="">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="default"/>
+                                </buttonConfiguration>
                                 <connections>
-                                    <action selector="onScanBtn:" destination="BV1-FR-VrT" eventType="touchUpInside" id="2IQ-Wf-0o3"/>
+                                    <action selector="onScanBtn:" destination="BV1-FR-VrT" eventType="touchUpInside" id="8UE-Qw-F8l"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="UKu-6Y-bab" secondAttribute="bottom" constant="60" id="5Ab-OU-40O"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
-                            <constraint firstItem="UKu-6Y-bab" firstAttribute="centerX" secondItem="U0K-SW-4ec" secondAttribute="centerX" id="McC-jt-ryr"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
+                            <constraint firstAttribute="bottom" secondItem="9ov-cV-cud" secondAttribute="bottom" constant="100" id="Dwr-1X-V9W"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="BrB-h1-WRS" secondAttribute="bottom" id="Wml-6K-PRK"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" id="eY7-W9-91i"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="BrB-h1-WRS" secondAttribute="trailing" id="eYs-41-Dbr"/>
+                            <constraint firstItem="9ov-cV-cud" firstAttribute="centerX" secondItem="U0K-SW-4ec" secondAttribute="centerX" id="pfq-sJ-pke"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="vys-iU-OD1"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="86f-iN-giQ"/>
+                    <navigationItem key="navigationItem" title="Scan" id="86f-iN-giQ"/>
                     <connections>
-                        <outlet property="scanBtn" destination="UKu-6Y-bab" id="8iW-LK-JTN"/>
+                        <outlet property="scanBtn" destination="9ov-cV-cud" id="WdX-bR-p7q"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <segue destination="OD2-uh-BNi" kind="show" identifier="segToRender" id="ocr-xT-VrF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1326" y="19"/>
+            <point key="canvasLocation" x="-1326.0869565217392" y="18.75"/>
+        </scene>
+        <!--Render-->
+        <scene sceneID="vQk-s5-tPd">
+            <objects>
+                <viewController storyboardIdentifier="RenderVC" id="OD2-uh-BNi" customClass="RenderViewController" customModule="WorldScan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ktD-4q-ZOl">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1eA-e1-AyK">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            </sceneKitView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yld-L8-RUz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="1eA-e1-AyK" firstAttribute="leading" secondItem="yld-L8-RUz" secondAttribute="leading" id="HWM-uS-DoV"/>
+                            <constraint firstItem="1eA-e1-AyK" firstAttribute="top" secondItem="yld-L8-RUz" secondAttribute="top" id="VAa-5i-USR"/>
+                            <constraint firstItem="yld-L8-RUz" firstAttribute="trailing" secondItem="1eA-e1-AyK" secondAttribute="trailing" id="cHn-s0-DN5"/>
+                            <constraint firstItem="yld-L8-RUz" firstAttribute="bottom" secondItem="1eA-e1-AyK" secondAttribute="bottom" id="yyK-Bl-24O"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Render" id="IOQ-Eu-Ncy"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cKq-wu-omZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-386" y="18"/>
         </scene>
     </scenes>
     <resources>
-        <image name="recordingButton_173x173.png" width="61.439998626708984" height="61.439998626708984"/>
+        <image name="startScanBtn" width="256" height="256"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
